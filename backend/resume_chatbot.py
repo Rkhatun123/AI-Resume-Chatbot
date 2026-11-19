@@ -34,7 +34,7 @@ app.add_middleware(
 
 # Resume PDF path
 BASE_DIR = Path(__file__).resolve().parent
-RESUME_FILE = Path("/etc/secrets/resume.pdf")
+RESUME_FILE = Path("/etc/secrets/resume.txt")
 # RESUME_FILE = BASE_DIR / "resume.pdf"
 
 
