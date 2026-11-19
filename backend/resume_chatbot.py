@@ -79,31 +79,22 @@ class ChatRequest(BaseModel):
 # -----------------------------
 # PDF Text Extraction
 # -----------------------------
-
-def read_pdf(file_path: Path):
+def read_resume(file_path: Path):
 
     if not file_path.exists():
         raise FileNotFoundError(
             f"Resume file not found: {file_path}"
         )
 
-    reader = PdfReader(file_path)
-
-    text = ""
-
-    for page in reader.pages:
-
-        page_text = page.extract_text()
-
-        if page_text:
-            text += page_text + "\n"
+    text = file_path.read_text(encoding="utf-8")
 
     if not text.strip():
         raise ValueError(
-            "No readable text found in the PDF."
+            "No readable text found in the resume file."
         )
 
     return text
+
 
 
 # -----------------------------
@@ -247,7 +238,7 @@ def home():
 def get_resume():
 
     try:
-        resume_text = read_pdf(RESUME_FILE)
+        resume_text = read_resume(RESUME_FILE)
         resume = parse_resume(resume_text)
 
         return resume.model_dump()
@@ -268,7 +259,7 @@ def chat(request: ChatRequest):
 
     try:
         # Step 1: Read PDF
-        resume_text = read_pdf(RESUME_FILE)
+        resume_text = read_resume(RESUME_FILE)
 
         # Step 2: Parse resume
         resume = parse_resume(resume_text)
