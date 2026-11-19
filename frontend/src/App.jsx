@@ -24,7 +24,8 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8001/chat",
+        "https://ai-resume-chatbot-1fl7.onrender.com/chat",
+        // "http://127.0.0.1:8001/chat",
         {
           method: "POST",
           headers: {
